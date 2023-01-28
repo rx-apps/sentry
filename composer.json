@@ -1,0 +1,14 @@
+{
+    "name": "rx-apps/sentry",
+    "type": "project",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "rxApps",
+            "email": "rxapps@qroffle.com"
+        }
+    ],
+    "require": {
+        "sentry/sdk": "^3.3"
+    }
+}
