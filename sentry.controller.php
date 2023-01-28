@@ -59,7 +59,7 @@ class SentryController extends Sentry
 		}
 
 		require_once __DIR__ . '/vendor/autoload.php';
-		initSentry([ 'dsn' => (include self::SENTRY_CONFIG_PATH) ]);
+		initSentry([ 'dsn' => $this->getAdminModel()->getSentryDsn() ]);
 
 		return true;
 	}
