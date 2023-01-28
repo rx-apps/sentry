@@ -1,9 +1,14 @@
 <?php
 
 use Rhymix\Framework\Debug;
-use function Sentry\init as initSentry;
+use Sentry\Event;
+use Sentry\EventHint;
+use Sentry\SentrySdk;
+use Sentry\Serializer\RepresentationSerializer;
+use Sentry\StacktraceBuilder;
+use function Sentry\captureEvent;
 use function Sentry\captureException;
-use function Sentry\captureLastError;
+use function Sentry\init as initSentry;
 
 class SentryController extends Sentry
 {
@@ -36,13 +41,28 @@ class SentryController extends Sentry
 			Debug::addError($errno, $errStr, $errFile, $errLine);
 		}, $errorLevels);
 		
-		set_exception_handler(static function (Exception $e) {
+		set_exception_handler(static function (Throwable $e) {
 			captureException($e);
 			Debug::exceptionHandler($e);
 		});
 		
 		register_shutdown_function(static function () {
-			captureLastError();
+			$errInfo = error_get_last();
+			if ($errInfo === null || ($errInfo['type'] !== 1 && $errInfo['type'] !== 4)) {
+				return;
+			}
+			$errInfo['file'] = Debug::translateFilename($errInfo['file']);
+			
+			$client = SentrySdk::getCurrentHub()->getClient();
+			$options = $client->getOptions();
+			$stacktraceBuilder = new StacktraceBuilder($options, new RepresentationSerializer($options));
+			
+			$event = Event::createEvent();
+			$event->setStacktrace($stacktraceBuilder->buildFromBacktrace(debug_backtrace(2), $errInfo['file'], $errInfo['line'] - 3));
+			
+			$hint = new EventHint();
+			$hint->exception = new ErrorException($errInfo['message'], 0, $errInfo['type'], $errInfo['file'], $errInfo['line']);
+			captureEvent($event, $hint);
 		});
 	}
 
