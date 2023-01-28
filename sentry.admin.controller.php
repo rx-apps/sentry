@@ -15,4 +15,16 @@ class SentryAdminController extends Sentry
 		
 		return file_put_contents(self::SENTRY_CONFIG_PATH, $php) !== false;
 	}
+
+	/**
+	 * Throw a test exception.
+	 *
+	 * @return void
+	 * @throws Exception
+	 * @noinspection PhpUnused
+	 */
+	public function procSentryAdminTest ()
+	{
+		throw new Exception('This is a test exception from rx-apps/sentry module.');
+	}
 }

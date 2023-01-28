@@ -6,5 +6,6 @@
 
 		<!-- (관리자) 컨트롤러 액션 -->
 		<action name="procSentryAdminIndex" type="controller" />
+		<action name="procSentryAdminTest" type="controller" />
 	</actions>
 </module>
