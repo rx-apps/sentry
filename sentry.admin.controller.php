@@ -10,14 +10,39 @@ class SentryAdminController extends Sentry
 	 */
 	public function setSentryDsn (string $dsn): bool
 	{
-		$php = '<?php' . "\n" . 'if (!defined(\'RX_BASEDIR\')) exit();' . "\n" . 'return \'%s\';';
-		$php = sprintf($php, escape($dsn));
+		$php = '<?php' . "\n" . 'if (!defined(\'RX_BASEDIR\')) exit();' . "\n" . 'return %s;';
+		$php = sprintf($php, var_export($dsn, true));
 		
-		return file_put_contents(self::SENTRY_CONFIG_PATH, $php) !== false;
+		$result = file_put_contents(self::SENTRY_CONFIG_PATH, $php) !== false;
+		if ($result && function_exists('opcache_invalidate')) {
+			opcache_invalidate(self::SENTRY_CONFIG_PATH);
+		}
+		
+		return $result;
 	}
 
 	/**
-	 * Throw a test exception.
+	 * Action to save module configuration.
+	 * 
+	 * @return void
+	 * @noinspection PhpUnused
+	 */
+	public function procSentryAdminIndex ()
+	{
+		$sentryDsn = Context::get('sentry_dsn');
+		if (!$this->setSentryDsn($sentryDsn)) {
+			$this->setError(-1);
+			$this->setMessage('');
+		}
+		else {
+			$this->setMessage('success_updated');
+		}
+		
+		$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispSentryAdminIndex'));
+	}
+
+	/**
+	 * Action to throw a test exception.
 	 *
 	 * @return void
 	 * @throws Exception
