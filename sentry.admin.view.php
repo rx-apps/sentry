@@ -7,7 +7,8 @@ class SentryAdminView extends Sentry
 	 */
 	protected static $_menus = [
 		// [ string $menu_lang_key, [ string $act, string ...$sub_act ], (bool) $visibility = true ]
-		[ 'sentry_admin_menu_index', [ 'dispSentryAdminIndex' ] ]
+		[ 'sentry_admin_menu_index', [ 'dispSentryAdminIndex' ] ],
+		[ 'sentry_admin_menu_test', [ 'procSentryAdminTest' ] ],
 	];
 
 	/**
@@ -25,6 +26,7 @@ class SentryAdminView extends Sentry
 	 * Action to modify module configuration.
 	 * 
 	 * @return void
+	 * @noinspection PhpUnused
 	 */
 	public function dispSentryAdminIndex ()
 	{

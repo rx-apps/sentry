@@ -15,6 +15,7 @@ $lang->sentry_description = 'Sentry 에러 트래킹 서비스를 연결합니�
  * 관리자 페이지 메뉴
  */
 $lang->sentry_admin_menu_index = '대시보드';
+$lang->sentry_admin_menu_test = '테스트 에러 생성';
 
 /**
  * 관리자 페이지 대시보드
