@@ -14,7 +14,7 @@
 	<!--@foreach($menus as $menu)-->
 		<!--@if($menu[2] ?? true)-->
 			<li class="x_active"|cond="in_array($act, $menu[1])">
-				<a href="{getUrl('', 'module', 'act', $menu[1][0])}">
+				<a href="{getUrl('', 'module', 'admin', 'act', $menu[1][0])}">
 					{Context::getLang($menu[0])}
 				</a>
 			</li>
