@@ -9,6 +9,12 @@
 	</h1>
 </div>
 
+<!--@if($XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/sentry')-->
+	<div class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+		<p>{$XE_VALIDATOR_MESSAGE}</p>
+	</div>
+<!--@endif-->
+
 <!-- 관리자 메뉴 -->
 <ul class="x_nav x_nav-tabs">
 	<!--@foreach($menus as $menu)-->

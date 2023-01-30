@@ -65,6 +65,18 @@
 		<input type="hidden" name="xe_validator_id" value="modules/sentry" />
 
 		<div class="x_control-group">
+			<label class="x_control-label" for="enabled">
+				{$lang->sentry_admin_lbl_enabled}
+			</label>
+			<div class="x_controls">
+				<label>
+					<input type="checkbox" name="enabled" value="Y" id="enabled" checked|cond="$enabled" />
+					<span>{$lang->use}</span>
+				</label>
+			</div>
+		</div>
+		
+		<div class="x_control-group">
 			<label class="x_control-label" for="sentry_dsn">
 				{$lang->sentry_admin_lbl_dsn}
 			</label>

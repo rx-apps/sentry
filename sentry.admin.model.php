@@ -67,4 +67,14 @@ class SentryAdminModel extends Sentry
 		
 		return include self::SENTRY_CONFIG_PATH;
 	}
+
+	/**
+	 * Check if Sentry is enabled.
+	 * 
+	 * @return bool
+	 */
+	public function isSentryEnabled (): bool
+	{
+		return $this->isTriggerExists([ 'moduleHandler.init', 'before', 'triggerBeforeModuleInit' ]);
+	}
 }

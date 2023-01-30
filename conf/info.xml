@@ -2,8 +2,8 @@
 <module version="0.2">
 	<title xml:lang="ko">Sentry</title>
 	<description xml:lang="ko">Sentry 에러 트래킹 서비스를 연결합니다.</description>
-	<version>0.0.1</version>
-	<date>2023-01-29</date>
+	<version>0.1.0</version>
+	<date>2023-01-30</date>
 	<author email_address="rxapps@qroffle.com" link="https://github.com/rx-apps">
 		<name xml:lang="ko">rxApps</name>
 	</author>

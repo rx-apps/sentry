@@ -44,8 +44,9 @@ class SentryAdminView extends Sentry
 		$github_url = $oAdminModel->getGithubUrl();
 		Context::set('github_url', $github_url);
 		
-		$sentryDsn = $this->getAdminModel()->getSentryDsn();
-		Context::set('sentry_dsn', $sentryDsn);
+		$oModel = $this->getAdminModel();
+		Context::set('enabled', $oModel->isSentryEnabled());
+		Context::set('sentry_dsn', $oModel->getSentryDsn());
 
 		$this->setTemplateFile('index');
 	}

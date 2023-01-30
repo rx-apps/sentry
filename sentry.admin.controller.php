@@ -22,6 +22,25 @@ class SentryAdminController extends Sentry
 	}
 
 	/**
+	 * Enable or disable Sentry module.
+	 * 
+	 * @param bool $enabled
+	 * @return bool
+	 */
+	public function setSentryEnabled (bool $enabled): bool
+	{
+		$triggerArgs = [ 'moduleHandler.init', $this->module, 'controller', 'triggerBeforeModuleInit', 'before' ];
+		
+		$oModuleController = getController('module');
+		if ($enabled) {
+			return $oModuleController->insertTrigger(...$triggerArgs)->toBool();
+		}
+		else {
+			return $oModuleController->deleteTrigger(...$triggerArgs)->toBool();
+		}
+	}
+
+	/**
 	 * Action to save module configuration.
 	 * 
 	 * @return void
@@ -29,10 +48,16 @@ class SentryAdminController extends Sentry
 	 */
 	public function procSentryAdminIndex ()
 	{
+		$enabled = Context::get('enabled') == 'Y';
+		if (!$this->setSentryEnabled($enabled)) {
+			$this->setError(-1);
+			$this->setMessage('sentry_msg_failed_save_enabled');
+		}
+		
 		$sentryDsn = Context::get('sentry_dsn');
 		if (!$this->setSentryDsn($sentryDsn)) {
 			$this->setError(-1);
-			$this->setMessage('');
+			$this->setMessage('sentry_msg_failed_save_dsn');
 		}
 		else {
 			$this->setMessage('success_updated');

@@ -31,5 +31,12 @@ $lang->sentry_admin_txt_advertisement_name = '어제 니 CSS 쩔더라ㅋ';
 $lang->sentry_admin_txt_advertisement_url = 'https://smartstore.naver.com/dsticker/products/5945597066';
 
 $lang->sentry_admin_tit_config = '기본 설정';
+$lang->sentry_admin_lbl_enabled = '사용 여부';
 $lang->sentry_admin_lbl_dsn = 'Sentry DSN';
 $lang->sentry_admin_txt_dsn = 'Settings > (Organization) Projects > 연동할 프로젝트 > (SDK Setup) Client Keys (DSN) 에서 확인할 수 있습니다.';
+
+/**
+ * 에러 메시지
+ */
+$lang->sentry_msg_failed_save_enabled = '활성/비활성 상태 변경에 실패했습니다.';
+$lang->sentry_msg_failed_save_dsn = 'Sentry DSN 저장에 실패했습니다.';

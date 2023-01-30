@@ -9,7 +9,7 @@ class Sentry extends ModuleObject
 	 */
 	protected static $_insert_triggers = [
 		// [ string $triggerName, string $triggerPosition, string $controllerMethodName ]
-		[ 'moduleHandler.init', 'before', 'triggerBeforeModuleInit' ]
+		// [ 'moduleHandler.init', 'before', 'triggerBeforeModuleInit' ]
 	];
 
 	/**
@@ -141,7 +141,7 @@ class Sentry extends ModuleObject
 	 * @param array $trigger
 	 * @return bool
 	 */
-	private function isTriggerExists(array $trigger): bool
+	protected function isTriggerExists(array $trigger): bool
 	{
 		$oModuleModel = getModel('module');
 		return (bool) $oModuleModel->getTrigger($trigger[0], $this->module, 'controller', $trigger[2], $trigger[1]);
